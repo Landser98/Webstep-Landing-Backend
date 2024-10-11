@@ -7,7 +7,8 @@ const Comments = sequelize.define('comments', {
     name: { type: DataTypes.STRING },
     img: {type: DataTypes.STRING },
     comment: { type: DataTypes.STRING },
-    score: { type: DataTypes.INTEGER }
+    score: { type: DataTypes.INTEGER },
+    sex: {type: DataTypes.STRING },
 });
 
 const Offers = sequelize.define('offers', {
