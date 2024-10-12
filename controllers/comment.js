@@ -17,7 +17,7 @@ class CommentController {
             }
             return res.json({message: "Пустые данные", success: true})
         } catch (e) {
-            return res.status(500).json({message: "Ошибка", success: false})
+            return res.status(500).json({message: "Ошибка", e, success: false})
         }
     };
     async getAll(req, res) {
