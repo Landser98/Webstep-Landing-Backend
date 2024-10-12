@@ -11,7 +11,6 @@ class OffersController {
                 text: `ФИО: ${fio} \n Номер: ${phoneNumber} \n Курс: ${course} \n Дата: ${formattedDate}`,
                 chat_id: process.env.TELEGRAM_OFFERS_CHANNEL_ID,
             })
-
             return res.status(200).json({body: req.body, success: true})
         } catch (e) {
             return res.status(500).json({message: "Ошибка", success: false})

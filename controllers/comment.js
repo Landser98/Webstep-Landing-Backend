@@ -22,7 +22,7 @@ class CommentController {
     };
     async getAll(req, res) {
         try {
-            const {page = 1, limit = 10} = req.query;
+            const {page = 1, limit = 6} = req.query;
             const offset = (page - 1) * limit;
 
             const {count, rows: comments} = await models.Comments.findAndCountAll({
