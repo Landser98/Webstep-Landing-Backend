@@ -7,24 +7,25 @@ class CommentController {
             const {name, comment, score} = req.body;
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
-
-            await models.Comments.create(req.body)
-            await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_COMMENTS_BOT_ID}/sendMessage`, {
-                text: `Имя: ${name} \n Оценка: ${score} \n Комментарий: ${comment} \n Дата: ${formattedDate}`,
-                chat_id: process.env.TELEGRAM_COMMENTS_CHANNEL_ID,
-            })
-
-            return res.json({body: req.body, success: true})
+            if (name && comment && score) {
+                await models.Comments.create(req.body)
+                await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_COMMENTS_BOT_ID}/sendMessage`, {
+                    text: `Имя: ${name} \n Оценка: ${score} \n Комментарий: ${comment} \n Дата: ${formattedDate}`,
+                    chat_id: process.env.TELEGRAM_COMMENTS_CHANNEL_ID,
+                })
+                return res.json({body: req.body, success: true})
+            }
+            return res.json({message: "Пустые данные", success: true})
         } catch (e) {
-            console.log(e)
+            return res.status(500).json({message: "Ошибка", success: false})
         }
     };
     async getAll(req, res) {
         try {
             const comments = await models.Comments.findAll()
-            return res.json({comments, status:200, error: false})
+            return res.status(200).json({comments, status:200, success: true})
         } catch (e) {
-            return res.json({error: false})
+            return res.status(500).json({message: "Ошибка", success: false})
         }
     }
 }

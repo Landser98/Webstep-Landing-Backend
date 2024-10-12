@@ -12,9 +12,9 @@ class OffersController {
                 chat_id: process.env.TELEGRAM_OFFERS_CHANNEL_ID,
             })
 
-            return res.json({body: req.body, success: true})
+            return res.status(200).json({body: req.body, success: true})
         } catch (e) {
-            console.log(e)
+            return res.status(500).json({message: "Ошибка", success: false})
         }
     };
 }
