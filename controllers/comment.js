@@ -22,8 +22,24 @@ class CommentController {
     };
     async getAll(req, res) {
         try {
-            const comments = await models.Comments.findAll()
-            return res.status(200).json({comments, status:200, success: true})
+            const {page = 1, limit = 10} = req.query;
+            const offset = (page - 1) * limit;
+
+            const {count, rows: comments} = await models.Comments.findAndCountAll({
+                offset,
+                limit
+            })
+
+            return res.status(200).json({
+                comments,
+                total: count,
+                page,
+                limit,
+                totalPages: Math.ceil(count / limit),
+                status: 200,
+                success: true
+            });
+
         } catch (e) {
             return res.status(500).json({message: "Ошибка", success: false})
         }
