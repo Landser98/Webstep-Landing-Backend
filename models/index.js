@@ -9,4 +9,5 @@ const Comments = sequelize.define('comments', {
     score: { type: DataTypes.INTEGER },
     sex: {type: DataTypes.STRING },
 });
+
 export default { Comments }
