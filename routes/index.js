@@ -7,6 +7,6 @@ const router = Router()
 
 router.use("/comments", commentsRouter)
 router.use("/offers", offersRouter)
-router.use("/consuptions", consumptionsRouter)
+router.use("/consumptions", consumptionsRouter)
 
 export default router

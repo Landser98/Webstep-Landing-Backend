@@ -18,7 +18,9 @@ class Consumption {
         try {
             const consumptions = await models.Consumption.findAll()
             if (consumptions.length) {
-                return res.status(200).json({consumptions, success: true})
+                const totalSum = consumptions.reduce((acc, cur) => acc + cur.amount, 0);
+
+                return res.status(200).json({consumptions, totalSum, success: true})
             }
             return res.status(200).json({body: {message: "Пусто"} , success: true})
         }catch (e) {
