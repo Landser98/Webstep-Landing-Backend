@@ -9,4 +9,12 @@ const Comments = sequelize.define('comments', {
     sex: {type: DataTypes.STRING, allowNull: false  },
 });
 
-export default { Comments }
+const Consumption = sequelize.define("consumptions", {
+    id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
+    reason: { type: DataTypes.STRING, allowNull: false },
+    amount: { type: DataTypes.INTEGER, allowNull: false },
+    status: { type: DataTypes.STRING, allowNull: false },
+    date: { type: DataTypes.DATEONLY, allowNull: false },
+})
+
+export default { Comments, Consumption }
