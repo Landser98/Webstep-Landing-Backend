@@ -13,7 +13,7 @@ const Consumption = sequelize.define("consumptions", {
     id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
     reason: { type: DataTypes.STRING, allowNull: false },
     amount: { type: DataTypes.INTEGER, allowNull: false },
-    status: { type: DataTypes.STRING, allowNull: false },
+    status: { type: DataTypes.BOOLEAN, allowNull: false },
     date: { type: DataTypes.DATEONLY, allowNull: false },
 })
 
