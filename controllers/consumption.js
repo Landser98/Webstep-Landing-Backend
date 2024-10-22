@@ -4,12 +4,12 @@ class Consumption {
     async create(req, res) {
         try {
             const {reason, amount, status, date} = req.body;
-            if (reason && amount && status && date) {
-                await models.Consumption.create({reason, amount, status, date})
-                return res.json({body: req.body, success: true})
+            if (!reason && !amount && !date) {
+                return res.json({message: "Пустые данные", success: true})
             }
-            return res.json({message: "Пустые данные", success: true})
-        }catch (e) {
+            await models.Consumption.create({reason, amount, status, date})
+            return res.json({body: req.body, success: true})
+        } catch (e) {
             console.log(e)
             return res.status(500).json({message: "Ошибка", success: false})
         }
@@ -23,7 +23,7 @@ class Consumption {
             }
             const totalSum = consumptions.reduce((acc, cur) => acc + cur.amount, 0);
             return res.status(200).json({consumptions, totalSum, success: true})
-        }catch (e) {
+        } catch (e) {
             console.log(e)
             return res.status(500).json({message: "Ошибка", success: true})
         }
