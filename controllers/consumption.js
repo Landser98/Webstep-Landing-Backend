@@ -32,7 +32,7 @@ class Consumption {
         try {
             const { id } = req.params;
             const { reason, amount, status, date } = req.body;
-            if (!reason && !amount && !status && !date) {
+            if (!reason && !amount && !date) {
                 return res.status(400).json({ message: "Нет данных для обновления", success: false });
             }
             const consumption = await models.Consumption.findByPk(id);
