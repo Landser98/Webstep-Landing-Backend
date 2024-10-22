@@ -5,6 +5,8 @@ const router = Router()
 
 router.get("/", Consumption.getAll)
 router.post("/", Consumption.create)
+router.put("/:id", Consumption.edit )
+router.get("/:id", Consumption.getOne)
 
 
 
