@@ -4,6 +4,7 @@ const router = Router()
 
 router.get("/", ModerationComments.getAll)
 router.post("/", ModerationComments.create)
+router.delete("/:id", ModerationComments.deleteById);
 
 
 

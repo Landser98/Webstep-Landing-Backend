@@ -45,6 +45,26 @@ class moderationCommentsController {
         } catch (e) {
             return res.status(500).json({message: "Ошибка", success: false})
         }
+    };
+    async deleteById(req, res) {
+        const commentId = req.params.id;
+
+        try {
+            const deletedCount = await models.moderationComments.destroy({
+                where: {
+                    id: commentId
+                }
+            });
+
+            if (deletedCount === 0) {
+                return res.status(404).json({ message: 'Комментарий не найден' });
+            }
+
+            return res.status(200).json({ message: 'Комментарий успешно удален' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Ошибка при удалении комментария' });
+        }
     }
 }
 
