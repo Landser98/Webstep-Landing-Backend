@@ -1,5 +1,4 @@
 import models from "../models/index.js";
-import axios from "axios";
 
 class CommentController {
     async create(req, res) {

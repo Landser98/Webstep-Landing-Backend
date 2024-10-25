@@ -8,7 +8,7 @@ class Consumption {
                 return res.json({message: "Пустые данные", success: true})
             }
             await models.Consumption.create({reason, amount, status, date})
-            return res.json({body: req.body, success: true})
+            return res.json({message: "Запись создана!", body: req.body, success: true})
         } catch (e) {
             console.log(e)
             return res.status(500).json({message: "Ошибка", success: false})
@@ -42,11 +42,12 @@ class Consumption {
 
             await consumption.update({ reason, amount, status, date });
 
-            return res.status(200).json({ message: "Запись обновлена", success: true, updatedData: consumption });
+            return res.status(200).json({ message: "Запись обновлена!", success: true, updatedData: consumption });
         } catch (e) {
+            console.log(e)
             return res.status(500).json({ message: "Ошибка при обновлении", success: false });
         }
-    }
+    };
     async getOne(req, res) {
         try {
             const { id } = req.params;
@@ -61,8 +62,23 @@ class Consumption {
             return res.status(500).json({ message: "Ошибка", success: false });
         }
 
-    }
+    };
+    async delete(req, res) {
+        try {
+            const { id } = req.params;
+            const consumption = await models.Consumption.findByPk(id);
 
+            if (!consumption) {
+                return res.status(404).json({ message: "Запись не найдена", success: false });
+            }
+
+            await consumption.destroy();
+            return res.status(200).json({ message: "Запись удалена!", success: true });
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({ message: "Ошибка при удалении", success: false });
+        }
+    }
 }
 
 export default new Consumption();
